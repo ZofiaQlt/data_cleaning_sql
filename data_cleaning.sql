@@ -8,7 +8,7 @@ FROM dbo.NashvilleHousing
 -- Standardize Date Format
 
 SELECT SaleDate,
-	   CONVERT(Date, SaleDate)
+       CONVERT(Date, SaleDate)
 FROM dbo.NashvilleHousing
 
 ALTER TABLE NashvilleHousing
@@ -33,10 +33,10 @@ FROM dbo.NashvilleHousing
 ORDER BY ParcelID
 
 SELECT a.ParcelID,
-	   a.PropertyAddress, 
-	   b.ParcelID, 
-	   b.PropertyAddress,
-	   ISNULL(a.PropertyAddress, b.PropertyAddress)
+       a.PropertyAddress,
+       b.ParcelID, 
+       b.PropertyAddress,
+       ISNULL(a.PropertyAddress, b.PropertyAddress)
 FROM dbo.NashvilleHousing a
 JOIN dbo.NashvilleHousing b
 ON a.ParcelID = b.ParcelID
@@ -122,7 +122,7 @@ FROM dbo.NashvilleHousing
 -- Change Y and N to Yes and No in "Sold as Vacant" field
 
 SELECT DISTINCT(SoldAsVacant),
-	   COUNT(SoldAsVacant)
+       COUNT(SoldAsVacant)
 FROM dbo.NashvilleHousing
 GROUP BY SoldAsVacant
 ORDER BY 2
@@ -130,7 +130,7 @@ ORDER BY 2
 
 SELECT SoldAsVacant,
 CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
-	 WHEN SoldAsVacant = 'N' THEN 'No'
+     WHEN SoldAsVacant = 'N' THEN 'No'
      ELSE SoldAsVacant
      END
 FROM dbo.NashvilleHousing
@@ -169,13 +169,13 @@ WITH RowNumCTE AS(
 SELECT *,
 	ROW_NUMBER() OVER (
 	PARTITION BY ParcelID,
-			 PropertyAddress,
-			 SalePrice,
-			 SaleDate,
-			 LegalReference
-			 ORDER BY 
-				UniqueID
-				) row_num
+		     PropertyAddress,
+		     SalePrice,
+		     SaleDate,
+		     LegalReference
+		     ORDER BY 
+			UniqueID
+			) row_num
 
 FROM dbo.NashvilleHousing
 )
