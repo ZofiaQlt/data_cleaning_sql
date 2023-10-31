@@ -4,7 +4,7 @@ Cleaning Data in SQL
 
 SELECT *
 FROM dbo.NashvilleHousing
-
+	
 -- Standardize Date Format
 
 SELECT SaleDate,
@@ -17,6 +17,13 @@ ADD SaleDateConverted Date;
 UPDATE NashvilleHousing
 SET SaleDateConverted = CONVERT(Date, SaleDate)
 
+-- Check Years
+
+SELECT DISTINCT(SaleDateConverted),
+       COUNT(SaleDateConverted)
+FROM dbo.NashvilleHousing
+GROUP BY SaleDateConverted
+ORDER BY 1
 
 -- Populate Property Address Data
 
